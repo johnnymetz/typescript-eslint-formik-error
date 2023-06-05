@@ -1,24 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Formik } from 'formik';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Typescript eslint formik error demo</h1>
+      <Formik
+        onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
+          setSubmitting(false);
+        }}
+        initialValues={{ name: 'Steve' }}
+      >
+        {({
+          values,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          setFieldValue,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  setFieldValue('name', 'Johnny');
+                }}
+              >
+                Set name to "Johnny"
+              </button>
+            </div>
+            <input
+              type="name"
+              name="name"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.name}
+            />
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </form>
+        )}
+      </Formik>
     </div>
   );
 }
