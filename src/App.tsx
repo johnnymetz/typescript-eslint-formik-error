@@ -24,7 +24,7 @@ function App() {
               <button
                 type="button"
                 onClick={() => {
-                  setFieldValue('name', 'Johnny');
+                  void setFieldValue('name', 'Johnny');
                 }}
               >
                 Set name to "Johnny"
