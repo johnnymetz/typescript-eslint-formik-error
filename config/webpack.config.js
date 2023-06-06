@@ -377,6 +377,7 @@ module.exports = function (webpackEnv) {
             },
             {
               test: /\.svg$/,
+              exclude: /(bootstrap-icons|simple-icons|custom-icons)/,
               use: [
                 {
                   loader: require.resolve('@svgr/webpack'),
@@ -419,7 +420,7 @@ module.exports = function (webpackEnv) {
                     },
                   ],
                 ],
-                
+
                 plugins: [
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
@@ -453,7 +454,7 @@ module.exports = function (webpackEnv) {
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled
                 cacheCompression: false,
-                
+
                 // Babel sourcemaps are needed for debugging into node_modules
                 // code.  Without the options below, debuggers like VSCode
                 // show incorrect code and set breakpoints on the wrong lines.
@@ -548,6 +549,13 @@ module.exports = function (webpackEnv) {
             // In production, they would get copied to the `build` folder.
             // This loader doesn't use a "test" so it will catch all modules
             // that fall through the other loaders.
+            {
+              test: /simple-icons\/.*\.svg$/,
+              type: 'asset/resource',
+              generator: {
+                filename: 'user-icons/simple-icons/[name][ext]',
+              },
+            },
             {
               // Exclude `js` files to keep "css" loader working as it injects
               // its runtime that would otherwise be processed through "file" loader.
